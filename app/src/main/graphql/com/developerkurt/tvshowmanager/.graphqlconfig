@@ -1,0 +1,16 @@
+{
+  "name": "TV Show Manager GraphQL Schema",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "https://tv-show-manager.combyne.com/graphql",
+        "headers": {
+          "X-Parse-Client-Key": "yiCk1DW6WHWG58wjj3C4pB/WyhpokCeDeSQEXA5HaicgGh4pTUd+3/rMOR5xu1Yi",
+          "X-Parse-Application-Id": "AaQjHwTIQtkCOhtjJaN/nDtMdiftbzMWW5N8uRZ+DNX9LI8AOziS10eHuryBEcCI"
+        },
+        "introspect": false
+      }
+    }
+  }
+}

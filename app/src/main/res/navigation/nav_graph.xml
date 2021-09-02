@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_main">
+
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.developerkurt.tvshowmanager.ui.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_addTVShowFragment"
+            app:destination="@id/addTVShowFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_listTVShowsFragment"
+            app:destination="@id/listTVShowsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTVShowFragment"
+        android:name="com.developerkurt.tvshowmanager.ui.AddTVShowFragment"
+        android:label="add_tv_show_fragment"
+        tools:layout="@layout/add_tv_show_fragment">
+        <action
+            android:id="@+id/action_addTVShowFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listTVShowsFragment"
+        android:name="com.developerkurt.tvshowmanager.ui.ListTVShowsFragment"
+        android:label="list_tv_shows_fragment"
+        tools:layout="@layout/list_tv_shows_fragment">
+        <action
+            android:id="@+id/action_listTVShowsFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+</navigation>

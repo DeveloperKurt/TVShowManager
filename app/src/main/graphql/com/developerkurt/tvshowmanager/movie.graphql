@@ -1,0 +1,15 @@
+fragment MovieFragment on Movie {
+    title
+    releaseDate
+    seasons
+}
+
+query FetchAllMovies {
+    movies{
+        edges{
+            node{
+                ...MovieFragment
+            }
+        }
+    }
+}

@@ -13,3 +13,11 @@ query FetchAllMovies {
         }
     }
 }
+
+mutation AddAMovie($input: CreateMovieInput!) {
+    createMovie(input: $input) {
+        movie {
+            ...MovieFragment
+        }
+    }
+}

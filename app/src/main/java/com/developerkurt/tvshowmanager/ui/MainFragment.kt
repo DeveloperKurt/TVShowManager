@@ -35,14 +35,14 @@ class MainFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnAddAMovie.setOnClickListener {
+        binding.fabAddMovie.setOnClickListener {
 
             val action = MainFragmentDirections.actionMainFragmentToAddTVShowFragment()
             view.findNavController().navigate(action)
 
         }
 
-        binding.btnViewMovies.setOnClickListener {
+        binding.fabShowMovies.setOnClickListener {
 
             val action = MainFragmentDirections.actionMainFragmentToListTVShowsFragment()
             view.findNavController().navigate(action)

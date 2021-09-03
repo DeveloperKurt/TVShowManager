@@ -2,4 +2,8 @@
     <string name="app_name">TV Show Manager</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_a_movie">Add A Movie</string>
+    <string name="combyne">combyne</string>
+    <string name="developerkurt">DeveloperKurt</string>
+    <string name="show_movies">Show Movies</string>
 </resources>

@@ -4,12 +4,17 @@ fragment MovieFragment on Movie {
     seasons
 }
 
-query FetchAllMovies {
-    movies{
+query FetchMovies($cursor: String) {
+    movies(after: $cursor){
         edges{
             node{
                 ...MovieFragment
             }
+            cursor
+        }
+        pageInfo{
+            hasNextPage
+            endCursor
         }
     }
 }

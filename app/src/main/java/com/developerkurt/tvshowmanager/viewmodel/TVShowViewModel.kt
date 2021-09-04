@@ -11,7 +11,7 @@ import com.apollographql.apollo.rx2.rx
 import com.apollographql.apollo.rx2.rxQuery
 import com.developerkurt.gamedatabase.data.source.Result
 import com.developerkurt.tvshowmanager.CreateMovieMutation
-import com.developerkurt.tvshowmanager.FetchAllMoviesQuery
+import com.developerkurt.tvshowmanager.FetchMoviesQuery
 import com.developerkurt.tvshowmanager.data.CreateTVShowListener
 import com.developerkurt.tvshowmanager.model.Movie
 import com.developerkurt.tvshowmanager.type.CreateMovieFieldsInput
@@ -36,13 +36,14 @@ class TVShowViewModel @Inject constructor(
     private var fetchMoviesDisposable: Disposable? = null
     private var createMovieDisposable: Disposable? = null
 
+    private var lastCursor = Input.absent<String>()
 
     private val dateTimeFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
     internal fun fetchTVShows(): LiveData<Result<List<Movie>>>
     {
-        val query = FetchAllMoviesQuery()
 
+        val query = FetchMoviesQuery(lastCursor)
 
         val maybe = apolloClient.rxQuery(query).singleElement()
 
@@ -57,7 +58,6 @@ class TVShowViewModel @Inject constructor(
                 else
                 {
                     val list: MutableList<Movie> = mutableListOf()
-
 
                     //Do error checks, and format the date before emitting it to the LiveData
                     it.data?.movies?.edges?.forEach {
@@ -78,30 +78,37 @@ class TVShowViewModel @Inject constructor(
                             }
                         }
 
-                        list.add(
-                                Movie(
-                                        movie.title,
-                                        date,
-                                        movie.seasons!!))
-
+                        list.add(Movie(movie.title, date, movie.seasons!!))
                     }
 
                     if (!it.hasErrors())
                     {
-                        moviesLiveData.value = Result.Success(list)
+                        //Pagination
+                        val hasNextPage = it.data?.movies?.pageInfo?.hasNextPage
+                        if (hasNextPage != null)
+                        {
+                            lastCursor = Input.fromNullable(it.data?.movies?.pageInfo?.endCursor)
+                            moviesLiveData.value = Result.Success(list)
+                        }
+                        else
+                        {
+                            Log.w(
+                                    "TvShowViewModel", "fetchMovies: Couldn't read the 'hasNextPage' field, not emitting the fetched lists " +
+                                    "to avoid duplication.")
+
+                        }
                     }
                     else
                     {
                         moviesLiveData.value = Result.Error()
-
                     }
-
                 }
+            },
+                    {//If the request fails
+                        Log.w("TvShowViewModel", "fetchMovies: ", it)
+                        moviesLiveData.value = Result.Error()
+                    })
 
-            }, {
-                Log.w("TvShowViewModel", "fetchMovies: ", it)
-                moviesLiveData.value = Result.Error()
-            })
 
         return moviesLiveData
     }
@@ -131,7 +138,7 @@ class TVShowViewModel @Inject constructor(
                 else
                     createTVShowListener?.onError()
 
-            },
+            },//If the request fails
                     {
                         Log.e("TvShowViewModel", "createTVShow: ", it)
                         createTVShowListener?.onError()

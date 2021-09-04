@@ -12,14 +12,23 @@ class MovieListAdapter() : RecyclerView.Adapter<MovieListAdapter.MovieDataViewHo
 {
     private var movieList: MutableList<Movie> = mutableListOf()
 
+    /**
+     * Used as a listener to notify the viewmodel when the end of the list is reached, and more data should be fetched
+     */
+    var onEndOfListReached: (() -> Unit)? = null
 
+    /**
+     * Adds the [data] to the end of the adapter list
+     */
     fun updateList(data: List<Movie>)
     {
+        val currentListIndex = movieList.size
         with(movieList) {
-            clear()
             addAll(data)
         }
-        notifyDataSetChanged()
+
+        //Only notifies the position where changes have been made
+        notifyItemRangeInserted(currentListIndex, data.size)
 
     }
 
@@ -33,6 +42,12 @@ class MovieListAdapter() : RecyclerView.Adapter<MovieListAdapter.MovieDataViewHo
     override fun onBindViewHolder(holder: MovieDataViewHolder, position: Int)
     {
         holder.bind(movieList[position])
+
+        //End of the list is reached
+        if (position == getItemCount() - 1)
+        {
+            onEndOfListReached?.invoke()
+        }
     }
 
     override fun getItemCount(): Int = movieList.size

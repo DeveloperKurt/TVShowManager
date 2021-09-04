@@ -5,17 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.developerkurt.gamedatabase.adapters.MovieListAdapter
 import com.developerkurt.gamedatabase.data.source.Result
 import com.developerkurt.tvshowmanager.databinding.ListTvShowsFragmentBinding
+import com.developerkurt.tvshowmanager.model.Movie
 import com.developerkurt.tvshowmanager.viewmodel.TVShowViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 
 @WithFragmentBindings
 @AndroidEntryPoint
-class ListTVShowsFragment : BaseDataFragment()
+class ListTVShowsFragment : BaseDataFragment(), Observer<Result<List<Movie>>>
 {
     // This property is only valid between onCreateView and  onDestroyView.
     private val binding get() = _binding!!
@@ -46,25 +48,20 @@ class ListTVShowsFragment : BaseDataFragment()
         }
         movieListAdapter = MovieListAdapter()
         binding.rvMovies.adapter = movieListAdapter
+
+        //fetch the list manually when it is called for the first time
+        fetchMovieList(movieListAdapter)
+
+        //Fetch more data when the onEndOfListReached listener is invoked
+        movieListAdapter.onEndOfListReached = {
+            fetchMovieList(movieListAdapter)
+        }
     }
 
-    override fun onResume()
+
+    private fun fetchMovieList(movieListAdapter: MovieListAdapter)
     {
-        super.onResume()
-        subscribeUi(movieListAdapter)
-    }
-
-    private fun subscribeUi(movieListAdapter: MovieListAdapter)
-    {
-        viewModel.fetchTVShows().observe(viewLifecycleOwner, { result ->
-
-            if (result is Result.Success)
-            {
-                movieListAdapter.updateList(result.data)
-            }
-
-            handleDataStateChange(result)
-        })
+        viewModel.fetchTVShows().observe(viewLifecycleOwner, this)
 
     }
 
@@ -88,6 +85,20 @@ class ListTVShowsFragment : BaseDataFragment()
     {
         super.onDestroyView()
         _binding = null
+    }
+
+    /**
+     * On new movie lists fetched
+     */
+    override fun onChanged(movieResult: Result<List<Movie>>)
+    {
+
+        if (movieResult is Result.Success)
+        {
+            movieListAdapter.updateList(movieResult.data)
+        }
+
+        handleDataStateChange(movieResult)
     }
 
 }

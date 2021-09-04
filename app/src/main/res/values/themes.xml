@@ -10,8 +10,8 @@
         <item name="colorSecondaryVariant">#E0611D</item>
         <item name="colorOnSecondary">#F2F2F2</item>
 
-        <item name="colorSurface">#F2F2F2</item>
-        <item name="colorOnSurface">#5B5B5B</item>
+        <item name="colorSurface">#F5F5F5</item>
+        <item name="colorOnSurface">#E0656565</item>
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSecondaryVariant</item>

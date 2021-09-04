@@ -2,6 +2,7 @@ package com.developerkurt.tvshowmanager.di
 
 import android.content.Context
 import com.apollographql.apollo.ApolloClient
+import com.apollographql.apollo.fetcher.ApolloResponseFetchers
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,6 +27,7 @@ object ViewModelTVShowModule
         return ApolloClient.builder()
             .serverUrl("https://tv-show-manager.combyne.com/graphql")
             .okHttpClient(okHttpClient)
+            .defaultResponseFetcher(ApolloResponseFetchers.CACHE_AND_NETWORK)
             .build()
     }
 

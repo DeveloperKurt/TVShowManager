@@ -25,7 +25,8 @@
         tools:layout="@layout/add_tv_show_fragment">
         <action
             android:id="@+id/action_addTVShowFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/listTVShowsFragment"
@@ -34,6 +35,8 @@
         tools:layout="@layout/list_tv_shows_fragment">
         <action
             android:id="@+id/action_listTVShowsFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

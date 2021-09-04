@@ -6,4 +6,9 @@
     <string name="combyne">combyne</string>
     <string name="developerkurt">DeveloperKurt</string>
     <string name="show_movies">Show Movies</string>
+    <string name="tv_shows">TV Shows</string>
+    <string name="seasons">Seasons: %1$.1f</string>
+    <string name="date">Date: %1$1s</string>
+    <string name="data_failed_to_fetch">Failed to fetch the data</string>
+
 </resources>

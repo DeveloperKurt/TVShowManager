@@ -14,7 +14,7 @@ query FetchAllMovies {
     }
 }
 
-mutation AddAMovie($input: CreateMovieInput!) {
+mutation CreateMovie($input: CreateMovieInput!) {
     createMovie(input: $input) {
         movie {
             ...MovieFragment

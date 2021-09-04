@@ -2,13 +2,19 @@
     <string name="app_name">TV Show Manager</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="add_a_movie">Add A Movie</string>
+    <string name="add_a_tv_show">Add a TV Show</string>
     <string name="combyne">combyne</string>
     <string name="developerkurt">DeveloperKurt</string>
-    <string name="show_movies">Show Movies</string>
+    <string name="view_tv_shows">View TV Shows</string>
     <string name="tv_shows">TV Shows</string>
     <string name="seasons">Seasons: %1$.1f</string>
     <string name="date">Date: %1$1s</string>
     <string name="data_failed_to_fetch">Failed to fetch the data</string>
+    <string name="release_date">Release Date</string>
+    <string name="seasons_title">Seasons</string>
+    <string name="tv_show">TV Show</string>
+    <string name="save">Save</string>
+    <string name="tv_show_saving_error">An Error Has Occurred When Saving the TV Show</string>
+    <string name="tv_show_saved_successfully">The TV Show is Successfully Saved</string>
 
 </resources>

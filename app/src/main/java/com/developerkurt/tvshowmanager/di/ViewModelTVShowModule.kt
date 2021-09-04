@@ -1,13 +1,11 @@
 package com.developerkurt.tvshowmanager.di
 
-import android.content.Context
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -33,16 +31,16 @@ object ViewModelTVShowModule
 
     @Provides
     @ViewModelScoped
-    fun provideOkHttpClient(@ApplicationContext applicationContext: Context): OkHttpClient
+    fun provideOkHttpClient(): OkHttpClient
     {
 
         return OkHttpClient.Builder()
-            .addInterceptor(AuthorizationInterceptor(applicationContext))
+            .addInterceptor(AuthorizationInterceptor())
             .build()
     }
 
 
-    private class AuthorizationInterceptor(val context: Context) : Interceptor
+    private class AuthorizationInterceptor() : Interceptor
     {
         override fun intercept(chain: Interceptor.Chain): Response
         {

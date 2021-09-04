@@ -56,7 +56,7 @@ class ListTVShowsFragment : BaseDataFragment()
 
     private fun subscribeUi(movieListAdapter: MovieListAdapter)
     {
-        viewModel.fetchMovies().observe(viewLifecycleOwner, { result ->
+        viewModel.fetchTVShows().observe(viewLifecycleOwner, { result ->
 
             if (result is Result.Success)
             {

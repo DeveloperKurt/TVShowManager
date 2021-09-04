@@ -24,4 +24,10 @@
     </style>
 
 
+    <style name="TVShowManagerDatePicker" parent="ThemeOverlay.AppCompat.Dialog">
+        <item name="android:textColorSecondary">?attr/colorSecondaryVariant
+        </item>    <!--days of the week-->
+
+    </style>
+
 </resources>

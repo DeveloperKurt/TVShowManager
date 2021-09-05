@@ -5,7 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.developerkurt.tvshowmanager.R
+import androidx.navigation.findNavController
+import com.developerkurt.tvshowmanager.databinding.FragmentMainBinding
 
 
 /**
@@ -16,20 +17,42 @@ import com.developerkurt.tvshowmanager.R
 class MainFragment : Fragment()
 {
 
+    private var _binding: FragmentMainBinding? = null
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
-        super.onCreate(savedInstanceState)
+    // This property is only valid between onCreateView and  onDestroyView.
+    private val binding get() = _binding!!
 
-    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View?
     {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?)
+    {
+        super.onViewCreated(view, savedInstanceState)
+        binding.fabAddMovie.setOnClickListener {
 
+            val action = MainFragmentDirections.actionMainFragmentToAddTVShowFragment()
+            view.findNavController().navigate(action)
+
+        }
+
+        binding.fabShowMovies.setOnClickListener {
+
+            val action = MainFragmentDirections.actionMainFragmentToListTVShowsFragment()
+            view.findNavController().navigate(action)
+
+        }
+    }
+
+    override fun onDestroyView()
+    {
+        super.onDestroyView()
+        _binding = null
+    }
 }

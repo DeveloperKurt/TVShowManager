@@ -2,7 +2,7 @@ package com.developerkurt.tvshowmanager.di
 
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
-import com.developerkurt.tvshowmanager.data.source.DefaultTVShowsRepository
+import com.developerkurt.tvshowmanager.data.source.RemoteTVShowsSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,9 +19,9 @@ object ViewModelTVShowModule
 {
     @Provides
     @ViewModelScoped
-    fun provideDefaultTVShowsRepository(apolloClient: ApolloClient): DefaultTVShowsRepository
+    fun provideDefaultTVShowsRepository(apolloClient: ApolloClient): RemoteTVShowsSource
     {
-        return DefaultTVShowsRepository(apolloClient)
+        return RemoteTVShowsSource(apolloClient)
     }
 
     @Provides

@@ -84,6 +84,11 @@ class TVShowViewModel @Inject constructor(
     }
 
 
+    /**
+     * Requests to create a new TV show.
+     *
+     * @return returns true if succeeds
+     */
     internal fun createTVShow(
             title: String,
             seasons: Double? = null,
@@ -121,6 +126,7 @@ class TVShowViewModel @Inject constructor(
     override fun onCleared()
     {
         super.onCleared()
+        //Disposes any observables if applicable
         disposeIfNotNullAndDisposed(createMovieDisposable, fetchMoviesDisposable)
 
     }

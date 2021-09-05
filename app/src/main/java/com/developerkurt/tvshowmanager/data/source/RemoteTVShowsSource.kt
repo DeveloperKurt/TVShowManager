@@ -19,7 +19,10 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DefaultTVShowsRepository(private val apolloClient: ApolloClient) : TVShowsDataSource
+/**
+ * A remote GraphQL TVShowsDataSource
+ */
+class RemoteTVShowsSource(private val apolloClient: ApolloClient) : TVShowsDataSource
 {
     private val TAG = "DefaultTVShowsRepository"
 
@@ -28,6 +31,9 @@ class DefaultTVShowsRepository(private val apolloClient: ApolloClient) : TVShows
     private val dateTimeFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
 
+    /**
+     * Fetches the TV Shows with pagination. Each time it is called, it returns the next page until no page is left.
+     */
     override fun fetchTVShows(listener: ResultListener<Result<List<Movie>>>): Disposable
     {
         val query = FetchMoviesQuery(lastCursor)
@@ -97,6 +103,11 @@ class DefaultTVShowsRepository(private val apolloClient: ApolloClient) : TVShows
 
     }
 
+    /**
+     * Creates a new TV show.
+     *
+     * The state of the operation can be listen through the [ResultListener] argument
+     */
     override fun createTVShow(title: String, seasons: Double?, releaseDate: Date?, listener: ResultListener<Result<Any>>): Disposable
     {
         val createMovie = CreateMovieMutation(

@@ -2,6 +2,7 @@ package com.developerkurt.tvshowmanager.di
 
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
+import com.developerkurt.tvshowmanager.data.source.DefaultTVShowsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +17,12 @@ import okhttp3.Response
 @Module
 object ViewModelTVShowModule
 {
+    @Provides
+    @ViewModelScoped
+    fun provideDefaultTVShowsRepository(apolloClient: ApolloClient): DefaultTVShowsRepository
+    {
+        return DefaultTVShowsRepository(apolloClient)
+    }
 
     @Provides
     @ViewModelScoped

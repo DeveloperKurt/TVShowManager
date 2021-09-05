@@ -6,7 +6,6 @@ package com.developerkurt.gamedatabase.data.source
 sealed class Result<out R>
 {
     object Loading : Result<Nothing>()
-    object FailedToUpdate : Result<Nothing>()
 
     //TODO [Improvement]: If the app is going to be translated, create an enum class with the error codes to determine which string resource to display
     //instead of passing the string directly
@@ -25,11 +24,16 @@ sealed class Result<out R>
             is Error -> "Error: " +
                     "${exception?.let { "\n Exception: $it" }}" +
                     "\n Message: $errorMessage"
-            is FailedToUpdate -> "FailedToUpdate"
             is Loading -> "Loading"
         }
     }
 }
+
+interface ResultListener<T>
+{
+    fun onResult(result: T)
+}
+
 
 /**
  * `true` if [Result] is of type [Success] & holds non-null [Success.data].

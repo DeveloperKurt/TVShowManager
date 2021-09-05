@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.developerkurt.tvshowmanager.R
-import com.developerkurt.tvshowmanager.data.CreateTVShowListener
 import com.developerkurt.tvshowmanager.databinding.AddTvShowFragmentBinding
 import com.developerkurt.tvshowmanager.viewmodel.TVShowViewModel
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
@@ -77,23 +76,24 @@ class AddTVShowFragment : Fragment(), DatePickerDialog.OnDateSetListener
 
 
 
+                //Call the createTVShow and observe the livedata it returns
                 viewModel.createTVShow(
                         title = title,
                         releaseDate = date,
-                        seasons = binding.etSeasons.text.toString().toDouble(),
-                        createTVShowListener = object : CreateTVShowListener
+                        seasons = binding.etSeasons.text.toString().toDouble())
+                    .observe(viewLifecycleOwner, {
+                        if (it != null)
                         {
-                            override fun onSuccess()
+                            if (it)
                             {
                                 Snackbar.make(binding.root, R.string.tv_show_saved_successfully, LENGTH_LONG).show()
                             }
-
-                            override fun onError()
+                            else
                             {
                                 Snackbar.make(binding.root, R.string.tv_show_saving_error, LENGTH_LONG).show()
                             }
-
-                        })
+                        }
+                    })
             }
         }
 

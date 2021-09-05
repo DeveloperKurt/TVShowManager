@@ -10,14 +10,14 @@ import androidx.navigation.findNavController
 import com.developerkurt.gamedatabase.adapters.MovieListAdapter
 import com.developerkurt.gamedatabase.data.source.Result
 import com.developerkurt.tvshowmanager.databinding.ListTvShowsFragmentBinding
-import com.developerkurt.tvshowmanager.model.Movie
+import com.developerkurt.tvshowmanager.model.ShowcaseMovie
 import com.developerkurt.tvshowmanager.viewmodel.TVShowViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 
 @WithFragmentBindings
 @AndroidEntryPoint
-class ListTVShowsFragment : BaseDataFragment(), Observer<Result<List<Movie>>>
+class ListTVShowsFragment : BaseDataFragment(), Observer<Result<List<ShowcaseMovie>>>
 {
     // This property is only valid between onCreateView and  onDestroyView.
     private val binding get() = _binding!!
@@ -50,16 +50,16 @@ class ListTVShowsFragment : BaseDataFragment(), Observer<Result<List<Movie>>>
         binding.rvMovies.adapter = movieListAdapter
 
         //fetch the list manually when it is called for the first time
-        fetchMovieList(movieListAdapter)
+        observeLiveDatas()
 
         //Fetch more data when the onEndOfListReached listener is invoked
         movieListAdapter.onEndOfListReached = {
-            fetchMovieList(movieListAdapter)
+            observeLiveDatas()
         }
     }
 
 
-    private fun fetchMovieList(movieListAdapter: MovieListAdapter)
+    private fun observeLiveDatas()
     {
         viewModel.fetchTVShows().observe(viewLifecycleOwner, this)
 
@@ -90,7 +90,7 @@ class ListTVShowsFragment : BaseDataFragment(), Observer<Result<List<Movie>>>
     /**
      * On new movie lists fetched
      */
-    override fun onChanged(movieResult: Result<List<Movie>>)
+    override fun onChanged(movieResult: Result<List<ShowcaseMovie>>)
     {
 
         if (movieResult is Result.Success)

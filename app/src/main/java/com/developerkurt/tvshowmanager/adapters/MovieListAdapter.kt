@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.developerkurt.tvshowmanager.R
 import com.developerkurt.tvshowmanager.databinding.MovieListItemBinding
-import com.developerkurt.tvshowmanager.model.Movie
+import com.developerkurt.tvshowmanager.model.ShowcaseMovie
 
 class MovieListAdapter() : RecyclerView.Adapter<MovieListAdapter.MovieDataViewHolder>()
 {
-    private var movieList: MutableList<Movie> = mutableListOf()
+    private var movieList: MutableList<ShowcaseMovie> = mutableListOf()
 
     /**
      * Used as a listener to notify the viewmodel when the end of the list is reached, and more data should be fetched
@@ -20,7 +20,7 @@ class MovieListAdapter() : RecyclerView.Adapter<MovieListAdapter.MovieDataViewHo
     /**
      * Adds the [data] to the end of the adapter list
      */
-    fun updateList(data: List<Movie>)
+    fun updateList(data: List<ShowcaseMovie>)
     {
         val currentListIndex = movieList.size
         with(movieList) {
@@ -55,7 +55,7 @@ class MovieListAdapter() : RecyclerView.Adapter<MovieListAdapter.MovieDataViewHo
 
     inner class MovieDataViewHolder(var binding: MovieListItemBinding, val context: Context) : RecyclerView.ViewHolder(binding.root)
     {
-        fun bind(movie: Movie)
+        fun bind(movie: ShowcaseMovie)
         {
             binding.tvMovieName.text = movie.title
             binding.tvDate.text = String.format(context.getString(R.string.date), movie.releaseDate)

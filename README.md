@@ -1,5 +1,7 @@
 # TV Show Manager
 
+A basic CRUD application that uses GraphQL and RXJava
+
 <br><br>
 
 ![Dark Theme](https://imgur.com/Vt3bTqJ.png)
